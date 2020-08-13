@@ -26,7 +26,7 @@ import static android.R.layout.simple_list_item_1;
 public class Activity_Datasource extends AsyncTask<String, Void, String> {
 
     private static final String POST_PARAM_KEYVALUE_SEPARATOR = "=";
-    private static final String DESTINATION_METHOD_SHOW = "allEntrys"; //TODO: übernahme der Funktion aus der reader.php
+    private static final String DESTINATION_METHOD_SHOW = "allEntrys";
     private URLConnection conn;
     private ListView listView;
     private ArrayList<Message> messageList;
