@@ -7,6 +7,10 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,13 +33,9 @@ public class Activity_Datasource extends AsyncTask<String, Void, String> {
     private static final String DESTINATION_METHOD_SHOW = "allEntrys";
     private URLConnection conn;
     private ListView listView;
-    private ArrayList<Message> messageList;
-    private CustomListAdapter adapter;
 
     public Activity_Datasource(ListView listView){
         this.listView = listView;
-        messageList = new ArrayList<Message>();
-        adapter = new CustomListAdapter(listView.getContext(),messageList);
     }
 
     @Override
@@ -79,14 +79,36 @@ public class Activity_Datasource extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-       if(!isBlank(result)){
-           // String[] arr = result.split("\"");
-           String[] arr = result.split(",");
-           for (int i = 0; i < arr.length-2; i+=3) {
-               Message message = new Message(arr[i],arr[i+1],arr[i+2]);
-               messageList.add(message);
+       try {
+           if (!isBlank(result)) {
+               // String[] arr = result.split("\"");
+
+               JSONArray jsonArray = new JSONArray(result);
+
+               Message[] messages = new Message[jsonArray.length()];
+               List<Message> list = new ArrayList<Message>();
+               for (int i = 0; i < jsonArray.length(); i++) {
+                   JSONObject obj = jsonArray.getJSONObject(i);
+                   Message message = new Message(obj.getString("Caption"),obj.getString("Content"),obj.getString("PictureAddress"));
+                   messages[i] = message;
+                   list.add(message);
+               }
+
+                CustomListAdapter customListAdapter = new CustomListAdapter(listView.getContext(),list);
+              // ArrayAdapter<Message> arrayAdapter = new ArrayAdapter<Message>(listView.getContext(), android.R.layout.simple_list_item_1, messages);
+              /* String[] arr = result.split(",");
+               for (int i = 0; i < arr.length - 2; i += 3) {
+                   Message message = new Message(arr[i], arr[i + 1], arr[i + 2]);
+                   messageList.add(message);
+               }*/
+               listView.setAdapter(customListAdapter);
            }
-            listView.setAdapter(adapter);
+       }
+       catch (JSONException e) {
+            e.printStackTrace();
+        }
+       catch (Exception e) {
+           e.printStackTrace();
        }
     }
     private boolean isBlank(String value) {
