@@ -1,6 +1,10 @@
 package zimkand.de.fakenewsorg;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +12,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class CustomListAdapter extends BaseAdapter {
@@ -43,17 +52,22 @@ public class CustomListAdapter extends BaseAdapter {
         if(convertView == null){
             convertView = layoutInflater.inflate(R.layout.list_item_layout,null);
             holder = new ViewHolder();
-            holder.pictureView=(ImageView)convertView.findViewById(R.id.imageView_picture);
-            holder.captionView=(TextView)convertView.findViewById(R.id.textView_caption);
+            holder.pictureView=convertView.findViewById(R.id.imageView_picture);
+            holder.captionView=convertView.findViewById(R.id.textView_caption);
             holder.contentView=convertView.findViewById(R.id.textView_content);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder)convertView.getTag();
         }
-
         Message message = this.listDataMessages.get(position);
+        Uri url = null;
+        url = Uri.parse("http://10.33.11.5" + message.getPictureName());
         holder.captionView.setText(message.getCaption());
         holder.contentView.setText(message.getContent());
+        holder.pictureView.setImageURI(url);
+
+
+       // new ImageLoader(url,holder.pictureView,10,10);
 
         return convertView;
     }
