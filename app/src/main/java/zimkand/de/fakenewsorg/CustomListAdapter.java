@@ -60,15 +60,9 @@ public class CustomListAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
         Message message = this.listDataMessages.get(position);
-        URL url = null;
-        try {
-            url = new URL("http://10.33.11.5" + message.getPictureName());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         holder.captionView.setText(message.getCaption());
         //holder.contentView.setText(message.getContent());
-        new ImageLoader(url,holder.pictureView,80,80).execute();
+        new ImageLoader(message.getPictureName(),holder.pictureView,80,80).execute();
 
 
        // new ImageLoader(url,holder.pictureView,10,10);

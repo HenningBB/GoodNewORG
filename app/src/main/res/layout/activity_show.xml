@@ -6,4 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".ShowActivity">
 
+    <ImageView
+        android:id="@+id/imageView_picture"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="provided picture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_picture"
+        app:layout_constraintTop_toTopOf="@+id/imageView_picture" />
+
+    <TextView
+        android:id="@+id/textView_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_caption"
+        app:layout_constraintStart_toStartOf="@+id/imageView_picture"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_picture" />
 </androidx.constraintlayout.widget.ConstraintLayout>

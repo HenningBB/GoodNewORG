@@ -23,8 +23,12 @@ public class ImageLoader extends AsyncTask<URI,Integer, Bitmap> {
     private int preferredWidth = 80;
     private int preferredHeight = 80;
 
-    public ImageLoader(URL url, ImageView imageView, int scaleWidth, int scaleHeight ) {
-        this.url = url;
+    public ImageLoader(String url, ImageView imageView, int scaleWidth, int scaleHeight ) {
+        try {
+            this.url = new URL("http://10.33.11.5" + url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         this.imageView = imageView;
         this.preferredWidth = scaleWidth;
         this.preferredHeight = scaleHeight;
