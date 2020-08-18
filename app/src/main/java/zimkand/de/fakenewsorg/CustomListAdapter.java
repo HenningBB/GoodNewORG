@@ -54,7 +54,7 @@ public class CustomListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.pictureView=convertView.findViewById(R.id.imageView_picture);
             holder.captionView=convertView.findViewById(R.id.textView_caption);
-            holder.contentView=convertView.findViewById(R.id.textView_content);
+            //holder.contentView=convertView.findViewById(R.id.textView_content);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder)convertView.getTag();
@@ -67,7 +67,7 @@ public class CustomListAdapter extends BaseAdapter {
             e.printStackTrace();
         }
         holder.captionView.setText(message.getCaption());
-        holder.contentView.setText(message.getContent());
+        //holder.contentView.setText(message.getContent());
         new ImageLoader(url,holder.pictureView,80,80).execute();
 
 
@@ -79,6 +79,6 @@ public class CustomListAdapter extends BaseAdapter {
     static class ViewHolder{
         ImageView pictureView;
         TextView captionView;
-        TextView contentView;
+        //TextView contentView;
     }
 }
