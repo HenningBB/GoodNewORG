@@ -81,7 +81,6 @@ public class Activity_Datasource extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
        try {
            if (!isBlank(result)) {
-               // String[] arr = result.split("\"");
 
                JSONArray jsonArray = new JSONArray(result);
 
@@ -95,12 +94,7 @@ public class Activity_Datasource extends AsyncTask<String, Void, String> {
                }
 
                 CustomListAdapter customListAdapter = new CustomListAdapter(listView.getContext(),list);
-              // ArrayAdapter<Message> arrayAdapter = new ArrayAdapter<Message>(listView.getContext(), android.R.layout.simple_list_item_1, messages);
-              /* String[] arr = result.split(",");
-               for (int i = 0; i < arr.length - 2; i += 3) {
-                   Message message = new Message(arr[i], arr[i + 1], arr[i + 2]);
-                   messageList.add(message);
-               }*/
+
                listView.setAdapter(customListAdapter);
            }
        }
@@ -115,4 +109,3 @@ public class Activity_Datasource extends AsyncTask<String, Void, String> {
         return value == null || value.trim().isEmpty();
     }
 }
-
