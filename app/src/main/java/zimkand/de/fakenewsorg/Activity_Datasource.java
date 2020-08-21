@@ -86,7 +86,7 @@ public class Activity_Datasource extends AsyncTask<String, Void, String> {
 
                Message[] messages = new Message[jsonArray.length()];
                List<Message> list = new ArrayList<Message>();
-               for (int i = 0; i < jsonArray.length(); i++) {
+               for (int i = jsonArray.length() - 1; i >= 0; i--) {
                    JSONObject obj = jsonArray.getJSONObject(i);
                    Message message = new Message(obj.getString("Caption"),obj.getString("Content"),obj.getString("PictureAddress"));
                    messages[i] = message;
