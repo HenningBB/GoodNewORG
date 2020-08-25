@@ -21,6 +21,6 @@ public class ShowActivity extends AppCompatActivity {
         String[] bottle = message.getStringArray(MainActivity.MESSAGE);
         caption.setText(bottle[0]);
         content.setText(bottle[1]);
-        new ImageLoader(bottle[2], picture,80,80).execute();
+        new ImageLoader(bottle[2], picture, 80, 80).execute();
     }
 }

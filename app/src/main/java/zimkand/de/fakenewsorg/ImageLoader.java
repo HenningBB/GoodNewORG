@@ -15,15 +15,15 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class ImageLoader extends AsyncTask<URI,Integer, Bitmap> {
-    private  URL url;
+public class ImageLoader extends AsyncTask<URI, Integer, Bitmap> {
+    private URL url;
     private URLConnection conn;
     private ImageView imageView;
 
     private int preferredWidth = 80;
     private int preferredHeight = 80;
 
-    public ImageLoader(String url, ImageView imageView, int scaleWidth, int scaleHeight ) {
+    public ImageLoader(String url, ImageView imageView, int scaleWidth, int scaleHeight) {
         try {
             this.url = new URL("http://10.33.11.5" + url);
         } catch (MalformedURLException e) {
@@ -45,21 +45,21 @@ public class ImageLoader extends AsyncTask<URI,Integer, Bitmap> {
         return null;
     }
 
-    private void openConnection() throws IOException{
+    private void openConnection() throws IOException {
         conn = url.openConnection();
         conn.setDoOutput(true);
     }
 
-    private Bitmap readResult() throws IOException{
+    private Bitmap readResult() throws IOException {
         Bitmap bitmap = BitmapFactory.decodeStream(conn.getInputStream());
-        if( preferredWidth > 0 && preferredHeight > 0 && bitmap.getWidth() > preferredWidth && bitmap.getHeight() > preferredHeight ) {
+        if (preferredWidth > 0 && preferredHeight > 0 && bitmap.getWidth() > preferredWidth && bitmap.getHeight() > preferredHeight) {
             return Bitmap.createScaledBitmap(bitmap, preferredWidth, preferredHeight, false);
         } else {
             return bitmap;
         }
     }
 
-    public void onPostExecute( Bitmap drawable ) {
-        imageView.setImageBitmap( drawable );
+    public void onPostExecute(Bitmap drawable) {
+        imageView.setImageBitmap(drawable);
     }
 }

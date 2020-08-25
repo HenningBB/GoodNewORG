@@ -6,19 +6,16 @@ public class Message {
     private String content;
     private String pictureName;
 
-    public Message(String caption)
-    {
+    public Message(String caption) {
         this.caption = caption;
     }
 
-    public Message(String caption,String content)
-    {
+    public Message(String caption, String content) {
         this.caption = caption;
         this.content = content;
     }
 
-    public Message(String caption,String content, String pictureName)
-    {
+    public Message(String caption, String content, String pictureName) {
         this.caption = caption;
         this.content = content;
         this.pictureName = pictureName;

@@ -34,7 +34,7 @@ public class Activity_Datasource extends AsyncTask<String, Void, String> {
     private URLConnection conn;
     private ListView listView;
 
-    public Activity_Datasource(ListView listView){
+    public Activity_Datasource(ListView listView) {
         this.listView = listView;
     }
 
@@ -49,7 +49,7 @@ public class Activity_Datasource extends AsyncTask<String, Void, String> {
         return null;
     }
 
-    private void openConnection() throws IOException{
+    private void openConnection() throws IOException {
         //StringBuffer für das zusammensetzen der URL
         StringBuffer dataBuffer = new StringBuffer();
         dataBuffer.append(URLEncoder.encode("method", "UTF-8"));
@@ -64,14 +64,14 @@ public class Activity_Datasource extends AsyncTask<String, Void, String> {
         wr.flush();
     }
 
-    private String readResult() throws IOException{
+    private String readResult() throws IOException {
         String result = null;
         //Lesen der Rückgabewerte vom Server
         BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         StringBuilder sb = new StringBuilder();
         String line = null;
         //Solange Daten bereitstehen werden diese gelesen.
-        while ((line=reader.readLine()) != null){
+        while ((line = reader.readLine()) != null) {
             sb.append(line);
         }
         return sb.toString();
@@ -79,32 +79,31 @@ public class Activity_Datasource extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-       try {
-           if (!isBlank(result)) {
+        try {
+            if (!isBlank(result)) {
 
-               JSONArray jsonArray = new JSONArray(result);
+                JSONArray jsonArray = new JSONArray(result);
 
-               Message[] messages = new Message[jsonArray.length()];
-               List<Message> list = new ArrayList<Message>();
-               for (int i = jsonArray.length() - 1; i >= 0; i--) {
-                   JSONObject obj = jsonArray.getJSONObject(i);
-                   Message message = new Message(obj.getString("Caption"),obj.getString("Content"),obj.getString("PictureAddress"));
-                   messages[i] = message;
-                   list.add(message);
-               }
+                Message[] messages = new Message[jsonArray.length()];
+                List<Message> list = new ArrayList<Message>();
+                for (int i = jsonArray.length() - 1; i >= 0; i--) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    Message message = new Message(obj.getString("Caption"), obj.getString("Content"), obj.getString("PictureAddress"));
+                    messages[i] = message;
+                    list.add(message);
+                }
 
-                CustomListAdapter customListAdapter = new CustomListAdapter(listView.getContext(),list);
+                CustomListAdapter customListAdapter = new CustomListAdapter(listView.getContext(), list);
 
-               listView.setAdapter(customListAdapter);
-           }
-       }
-       catch (JSONException e) {
+                listView.setAdapter(customListAdapter);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-       catch (Exception e) {
-           e.printStackTrace();
-       }
     }
+
     private boolean isBlank(String value) {
         return value == null || value.trim().isEmpty();
     }
